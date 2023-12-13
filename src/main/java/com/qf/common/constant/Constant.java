@@ -39,7 +39,7 @@ public class Constant {
     /**
      * 验证码前缀
      */
-    public static final String CAPTCHA_PREFIX = "CAPTCHA:";
+    public static final String REDIS_CAPTCHA_PREFIX = "CAPTCHA:";
 
     /**
      * redis key前缀
@@ -47,12 +47,8 @@ public class Constant {
     public static final String REDIS_USER_KEY_PREFIX = "USER_KEY:";
 
     public static final String[] URLS = {
-            "/register",
             LOGIN_URL,
-            "/auth/captcha",
-            "/unAuth",
-            "/user/refreshToken",
-            "/test1",
+            CAPTCHA_URL,
             ".css",
             "**.css",
             ".js",
@@ -64,6 +60,4 @@ public class Constant {
             "/v3/api-docs/**",
             "/favicon.ico",
     };
-
-    //public static List<String> ANNOS_LIST = Arrays.asList(URLS);
 }

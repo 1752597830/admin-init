@@ -40,7 +40,7 @@ public class ToolUtils {
         String result = captcha.text();  // 获取运算的结果：5
         // 存储到redis
         RedisCache redisCache = BeanUtils.getBean(RedisCache.class);
-        redisCache.setCacheObject(Constant.CAPTCHA_PREFIX + uuid, result);
+        redisCache.setCacheObject(Constant.REDIS_CAPTCHA_PREFIX + uuid, result);
 
         String base64 = captcha.toBase64();
         Map<String , String> map = new HashMap<>();

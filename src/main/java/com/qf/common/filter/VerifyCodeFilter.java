@@ -34,7 +34,7 @@ public class VerifyCodeFilter extends GenericFilterBean {
         if ("POST".equalsIgnoreCase(request.getMethod()) && Constant.LOGIN_URL.equals(request.getServletPath())) {
             String captchaKey = request.getParameter(Constant.CAPTCHA_KEY);
             String captchaCode = request.getParameter(Constant.CAPTCHA_CODE);
-            if (StringUtils.isEmpty(captchaCode) || !captchaCode.equals(BeanUtils.getBean(RedisCache.class).getCacheObject(Constant.CAPTCHA_PREFIX + captchaKey))) {
+            if (StringUtils.isEmpty(captchaCode) || !captchaCode.equals(BeanUtils.getBean(RedisCache.class).getCacheObject(Constant.REDIS_CAPTCHA_PREFIX + captchaKey))) {
                 ServletUtils.renderString(response, BaseResponse.fail(ResponseCode.VERIFY_CODE_ERROR.getCode(), ResponseCode.VERIFY_CODE_ERROR.getMsg()));
                 return;
             }
