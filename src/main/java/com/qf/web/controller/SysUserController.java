@@ -4,6 +4,7 @@ import com.qf.common.utils.BaseResponse;
 import com.qf.common.utils.ToolUtils;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
@@ -16,13 +17,14 @@ import java.util.Map;
 
 @RestController
 @Tag(name = "用户接口")
+@RequestMapping("/auth")
 public class SysUserController {
 
     /**
      * 获取验证码
      */
 
-    @GetMapping("/auth/captcha")
+    @GetMapping("/captcha")
     public BaseResponse getCaptcha() {
         Map<String, String> map = ToolUtils.GenerateVerifyCode();
         return BaseResponse.success(map);
