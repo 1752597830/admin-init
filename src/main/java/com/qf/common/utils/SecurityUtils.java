@@ -43,6 +43,7 @@ public class SecurityUtils {
         // 将通配符*替换成正则表达式.*
         String regex = pattern.replaceAll("\\*", ".*");
 
+
         // 使用matches方法进行匹配
         return target.matches(regex);
     }

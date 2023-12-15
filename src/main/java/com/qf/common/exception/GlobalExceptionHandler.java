@@ -1,6 +1,7 @@
 package com.qf.common.exception;
 
 import com.qf.common.utils.BaseResponse;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -18,5 +19,4 @@ public class GlobalExceptionHandler {
     public BaseResponse baseExceptionHandler(BaseException e) {
         return BaseResponse.fail(e.getCode(), e.getErrMessage());
     }
-
 }

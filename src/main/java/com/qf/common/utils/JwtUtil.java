@@ -29,8 +29,9 @@ public class JwtUtil {
 
 
     public String token(Authentication authentication) {
+        System.out.println(EXPRIETIME);
         return JWT.create()
-                .withExpiresAt(new Date(System.currentTimeMillis() + 1000L * 60 * EXPRIETIME))  //设置过期时间:单位毫秒
+                .withExpiresAt(new Date(System.currentTimeMillis() * 10000L + 100000L * 60 * EXPRIETIME))  //设置过期时间:单位毫秒
                 .withAudience(JSON.toJSONString(authentication)) //设置接受方信息，一般时登录用户
                 .sign(Algorithm.HMAC256(SECRET));
     }

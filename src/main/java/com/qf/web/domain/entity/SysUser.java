@@ -1,23 +1,32 @@
 package com.qf.web.domain.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @TableName sys_user
  */
 @TableName(value = "sys_user")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class SysUser implements Serializable, UserDetails {
     /**
      * 用户的ID
      */
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
@@ -51,7 +60,7 @@ public class SysUser implements Serializable, UserDetails {
     private String mobile;
 
     /**
-     * 用户的状态 0:正常;1:禁用
+     * 用户的状态 0:禁用;1:正常
      */
     private Integer status;
 
@@ -63,6 +72,7 @@ public class SysUser implements Serializable, UserDetails {
     /**
      * 用户是否被删除 0:未删除;1:已删除
      */
+    @TableLogic(value = "0", delval = "1")
     private Integer deleted;
 
     /**
@@ -86,12 +96,24 @@ public class SysUser implements Serializable, UserDetails {
     private String updateBy;
 
     /**
+     * 用户拥有的角色
+     */
+    @TableField(exist = false)
+    private List<String> roles;
+
+    /**
+     * 用户的权限
+     */
+    @TableField(exist = false)
+    private List<String> perms;
+
+    /**
      * 序列化版本UID
      */
     private static final long serialVersionUID = 1L;
 
     /**
-     * 获取用户所具有的权限
+     * 获取用户所具有的权限perms
      *
      * @return 返回用户所具有的权限列表，如果没有权限则返回null
      */
@@ -113,13 +135,13 @@ public class SysUser implements Serializable, UserDetails {
 
 
     /**
-     * 判断账户是否被锁定
+     * 判断账户是否被锁定（逻辑删除）
      *
      * @return 如果账户被锁定返回true，否则返回false
      */
     @Override
     public boolean isAccountNonLocked() {
-        return this.status == 0 ? true : false;
+        return this.deleted == 0 ? true : false;
     }
 
 
@@ -141,7 +163,17 @@ public class SysUser implements Serializable, UserDetails {
      */
     @Override
     public boolean isEnabled() {
-        return this.status == 0 ? true : false;
+        return this.status == 1 ? true : false;
     }
 
+    public SysUser(Long id, String username, String nickname, Integer gender, String password, String mobile, Integer status, String email) {
+        this.id = id;
+        this.username = username;
+        this.nickname = nickname;
+        this.gender = gender;
+        this.password = password;
+        this.mobile = mobile;
+        this.status = status;
+        this.email = email;
+    }
 }

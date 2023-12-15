@@ -8,12 +8,12 @@ package com.qf.common.utils;
  */
 public enum ResponseCode {
 
-    SUCCESS("200", "ok"),
+    SUCCESS("00000", "一切ok"),
     FAIL("500", "失败"),
     LOGIN_ERROR("501", "登录失败"),
     VERIFY_CODE_ERROR("4001", "验证码错误"),
     NO_LOGIN("401", "未登录"),
-    NO_PERMISSION("403", "没有权限"),
+    NO_PERMISSION("403", "权限不足，请联系管理员!"),
     NO_ACCESS("504", "没有访问权限"),
     NO_DATA("505", "没有数据"),
     NO_EXIST("404", "资源不存在");

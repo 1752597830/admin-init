@@ -22,11 +22,15 @@ public class NoAuthenticationEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) {
         log.info("认证异常");
         int status = response.getStatus();
+        System.out.println(status);
         if (status == HttpServletResponse.SC_NOT_FOUND) {
             // 资源不存在
             ServletUtils.renderString(response, BaseResponse.fail(ResponseCode.NO_EXIST.getCode(), ResponseCode.NO_EXIST.getMsg()));
+        } else if (status == HttpServletResponse.SC_FORBIDDEN) {
+            // 无权访问
+            ServletUtils.renderString(response, BaseResponse.fail(ResponseCode.NO_PERMISSION.getCode(), ResponseCode.NO_PERMISSION.getMsg()));
         } else {
-            // 未认证或者token过期
+
             ServletUtils.renderString(response, BaseResponse.fail(ResponseCode.NO_LOGIN.getCode(), ResponseCode.NO_LOGIN.getMsg()));
         }
     }

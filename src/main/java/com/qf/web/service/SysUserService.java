@@ -1,7 +1,13 @@
 package com.qf.web.service;
 
+import com.qf.web.domain.dto.UserPage;
 import com.qf.web.domain.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.qf.web.domain.vo.UserForm;
+import com.qf.web.domain.vo.UserPageVo;
+import com.qf.web.domain.vo.UserVo;
+
+import java.util.List;
 
 /**
 * @author 清风
@@ -11,4 +17,16 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface SysUserService extends IService<SysUser> {
 
     SysUser selectByUsername(String username);
+
+    UserVo getUserInfo();
+
+    List<UserPageVo> getPage(UserPage userPage);
+
+    UserForm getUserFormByUid(Long userId);
+
+    Integer save(UserForm userForm);
+
+    int deleteBatchIds(String ids);
+
+    int updateByUserId(UserForm userForm);
 }

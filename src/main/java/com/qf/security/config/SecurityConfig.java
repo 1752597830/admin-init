@@ -2,7 +2,9 @@ package com.qf.security.config;
 
 import com.qf.common.constant.Constant;
 import com.qf.common.filter.JwtAuthenticationTokenFilter;
-import com.qf.common.filter.VerifyCodeFilter;
+import com.qf.common.utils.ServletUtils;
+import com.qf.common.utils.BaseResponse;
+import com.qf.security.auth.MyauthorizationManager;
 import com.qf.security.exception.NoAuthenticationEntryPoint;
 import com.qf.security.handler.LoginFailHandler;
 import com.qf.security.handler.LoginSuccessHandler;
@@ -19,7 +21,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
-
 /**
  * @author : sin
  * @date : 2023/12/13 9:42
@@ -32,8 +33,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig {
 
+    /**
+     * 自定义权限校验
+     */
+    @Resource
+    private MyauthorizationManager authorizationManager;
     @Resource
     private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
@@ -41,19 +48,21 @@ public class SecurityConfig {
          * 配置放行的访问接口
          */
         http.authorizeHttpRequests(e -> e.requestMatchers(Constant.URLS).permitAll());
+
+        http.authorizeHttpRequests(e -> e.anyRequest().access(authorizationManager));
         /**
          * 配置自定义登录
          */
         http.formLogin(e -> e.loginPage(Constant.LOGIN_URL).successHandler(new LoginSuccessHandler()).failureHandler(new LoginFailHandler()));
         http.logout(e -> e.logoutUrl(Constant.LOGOUT_URL).logoutSuccessHandler((request, response, authentication) -> {
-                    log.info("注销成功");
+                    ServletUtils.renderString(response, BaseResponse.success("退出成功"));
                 })
         );
         // 配置身份验证异常处理
         http.exceptionHandling(e -> e.authenticationEntryPoint(new NoAuthenticationEntryPoint()));
 
         // 配置JWT过滤器
-        http.addFilterBefore(new VerifyCodeFilter(), UsernamePasswordAuthenticationFilter.class);
+        //http.addFilterBefore(new VerifyCodeFilter(), UsernamePasswordAuthenticationFilter.class);
 
         http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
 

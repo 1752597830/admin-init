@@ -1,8 +1,13 @@
 package com.qf.web.mapper;
 
+import com.qf.web.domain.dto.UserPage;
 import com.qf.web.domain.entity.SysUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.qf.web.domain.vo.UserForm;
+import com.qf.web.domain.vo.UserPageVo;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
 * @author 清风
@@ -13,6 +18,9 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
+    List<UserPageVo> getPage(String keywords, String status, String startTime, String endTime);
+
+    UserForm getUserFormByUid(Long userId);
 }
 
 

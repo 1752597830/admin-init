@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.qf</groupId>
-    <artifactId>admin-init</artifactId>
+    <artifactId>admin-init-main</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>admin-init</name>
+    <name>admin-init-main</name>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -22,6 +22,7 @@
         <fastjson.version>1.2.74</fastjson.version>
         <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
         <jwt.version>4.2.1</jwt.version>
+        <pagehelper.version>2.0.0</pagehelper.version>
     </properties>
 
     <dependencies>
@@ -95,11 +96,18 @@
             <artifactId>nashorn-core</artifactId>
             <version>15.4</version>
         </dependency>
+        <!--    分页    -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>${pagehelper.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
