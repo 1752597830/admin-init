@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.qf.web.domain.vo.UserForm;
 import com.qf.web.domain.vo.UserPageVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -21,6 +22,9 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
     List<UserPageVo> getPage(String keywords, String status, String startTime, String endTime);
 
     UserForm getUserFormByUid(Long userId);
+
+    @Select("select * from sys_user where username = #{username}")
+    SysUser selectByUsername(String username);
 }
 
 

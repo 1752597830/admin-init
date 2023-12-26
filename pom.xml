@@ -114,5 +114,12 @@
             <version>3.8.1</version>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/cn.shenyanchao.ik-analyzer/ik-analyzer -->
+        <dependency>
+            <groupId>cn.shenyanchao.ik-analyzer</groupId>
+            <artifactId>ik-analyzer</artifactId>
+            <version>9.0.0</version>
+        </dependency>
+
     </dependencies>
 </project>

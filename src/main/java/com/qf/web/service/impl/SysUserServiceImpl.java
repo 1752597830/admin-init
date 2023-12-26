@@ -40,7 +40,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
     @Override
     public SysUser selectByUsername(String username) {
 
-        SysUser user = sysUserMapper.selectOne(new QueryWrapper<SysUser>().eq("username", username));
+        SysUser user = sysUserMapper.selectByUsername(username);
         // 通过id获取权限和角色
         if (user!= null) {
             List<String> roles = sysRoleService.selectRoleByUserId(user.getId());

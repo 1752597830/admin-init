@@ -73,6 +73,7 @@ public class SysUser implements Serializable, UserDetails {
      * 用户是否被删除 0:未删除;1:已删除
      */
     @TableLogic(value = "0", delval = "1")
+    @TableField(select = false)
     private Integer deleted;
 
     /**
