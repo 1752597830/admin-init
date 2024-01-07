@@ -29,7 +29,7 @@ public class SysPermission implements Serializable {
     /**
      * 菜单模块ID
      */
-    private Integer menuId;
+    private Long menuId;
 
     /**
      * URL权限标识

@@ -54,6 +54,7 @@ public class Constant {
             ".js",
             "**.js",
             "/doc.html",
+            "/test",
             "/swagger-ui",
             "/swagger-ui/**",
             "/v3/api-docs",

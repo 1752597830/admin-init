@@ -2,6 +2,8 @@ package com.qf.web.domain.vo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -41,7 +43,7 @@ public class RolePageVo {
     private Integer sort;
 
     /**
-     * 角色状态(1-正常；0-停用)
+     * 角色状态(0-正常；1-停用)
      */
     private Integer status;
 
@@ -51,12 +53,21 @@ public class RolePageVo {
     private Integer deleted;
 
     /**
+     * 备注信息
+     */
+    private String remark;
+
+    /**
      * 创建时间
      */
+    @Schema(description = "创建时间")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date createTime;
 
     /**
      * 更新时间
      */
+    @Schema(description = "更新时间")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date updateTime;
 }

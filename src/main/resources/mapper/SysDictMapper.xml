@@ -29,6 +29,17 @@
         select d.id, d.name
         from sys_dict d
         where d.type_code = #{typeCode}
-          and d.status = 0
+          and d.status = 1
+    </select>
+    <select id="selectDictTypes" resultType="com.qf.web.domain.vo.DictTypeVo">
+        select d.id, d.code, d.name
+        from sys_dict_type d
+        where d.status = 1
+    </select>
+    <select id="dictValuePage" resultType="com.qf.web.domain.vo.DictPageVo">
+        select d.id, d.name, d.type_code, d.status, d.value, d.create_time
+        from sys_dict d
+        where d.type_code = #{code}
+          and d.status = 1
     </select>
 </mapper>

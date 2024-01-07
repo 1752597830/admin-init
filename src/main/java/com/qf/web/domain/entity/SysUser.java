@@ -1,6 +1,7 @@
 package com.qf.web.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -84,6 +85,7 @@ public class SysUser implements Serializable, UserDetails {
     /**
      * 用户最后更新的时间
      */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date updateTime;
 
     /**

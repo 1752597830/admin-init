@@ -3,6 +3,7 @@ package com.qf.web.service;
 import com.qf.web.domain.entity.SysMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.qf.web.domain.dto.MenuOptionsDto;
+import com.qf.web.domain.vo.MenuTreeVo;
 import com.qf.web.domain.vo.RouteVo;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface SysMenuService extends IService<SysMenu> {
     List<RouteVo> getRoutes();
 
     List<MenuOptionsDto> getMenuOptions();
+
+    List<MenuTreeVo> getMenuTree();
 }

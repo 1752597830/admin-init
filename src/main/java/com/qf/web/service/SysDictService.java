@@ -3,6 +3,8 @@ package com.qf.web.service;
 import com.qf.web.domain.entity.SysDict;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.qf.web.domain.dto.OptionsDto;
+import com.qf.web.domain.vo.DictPageVo;
+import com.qf.web.domain.vo.DictTypeVo;
 
 import java.util.List;
 
@@ -14,4 +16,8 @@ import java.util.List;
 public interface SysDictService extends IService<SysDict> {
 
     List<OptionsDto> dictOptions(String typeCode);
+
+    List<DictTypeVo> dictTypes();
+
+    List<DictPageVo> dictValuePage(String code);
 }

@@ -3,6 +3,8 @@ package com.qf.web.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qf.web.domain.entity.SysDict;
 import com.qf.web.domain.dto.OptionsDto;
+import com.qf.web.domain.vo.DictPageVo;
+import com.qf.web.domain.vo.DictTypeVo;
 import com.qf.web.service.SysDictService;
 import com.qf.web.mapper.SysDictMapper;
 import jakarta.annotation.Resource;
@@ -28,6 +30,17 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict>
     @Override
     public List<OptionsDto> dictOptions(String typeCode) {
         return sysDictMapper.selectDictByTypeCode(typeCode);
+    }
+
+    @Override
+    public List<DictTypeVo> dictTypes() {
+        return sysDictMapper.selectDictTypes();
+    }
+
+    @Override
+    public List<DictPageVo> dictValuePage(String code) {
+        List<DictPageVo> list = sysDictMapper.dictValuePage(code);
+        return list;
     }
 }
 

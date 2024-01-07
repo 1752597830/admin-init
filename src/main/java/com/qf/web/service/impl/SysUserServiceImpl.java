@@ -59,6 +59,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
             userVo.setUserId(userInfo.getId());
             userVo.setNickname(userInfo.getNickname());
             userVo.setAvatar(userInfo.getAvatar());
+            userVo.setMobile(userInfo.getMobile());
+            userVo.setGender(userInfo.getGender());
+            userVo.setEmail(userInfo.getEmail());
+            userVo.setCreateTime(userInfo.getCreateTime());
             userVo.setRoles(userInfo.getRoles());
             userVo.setPerms(userInfo.getPerms());
         }

@@ -2,6 +2,8 @@ package com.qf.web.controller;
 
 import com.qf.common.utils.BaseResponse;
 import com.qf.web.domain.dto.MenuOptionsDto;
+import com.qf.web.domain.entity.SysMenu;
+import com.qf.web.domain.vo.MenuTreeVo;
 import com.qf.web.domain.vo.RouteVo;
 import com.qf.web.service.SysMenuService;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -44,6 +46,16 @@ public class SysMenuController {
     @GetMapping("/options")
     public BaseResponse getPerms() {
         List<MenuOptionsDto> sysMenus = sysMenuService.getMenuOptions();
+        return BaseResponse.success(sysMenus);
+    }
+
+    /**
+     * @author: sin
+     * @Description 获取菜单树
+     */
+    @GetMapping("")
+    public BaseResponse getMenuTree() {
+        List<MenuTreeVo> sysMenus = sysMenuService.getMenuTree();
         return BaseResponse.success(sysMenus);
     }
 

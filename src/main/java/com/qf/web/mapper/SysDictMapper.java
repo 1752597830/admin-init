@@ -3,6 +3,8 @@ package com.qf.web.mapper;
 import com.qf.web.domain.entity.SysDict;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.qf.web.domain.dto.OptionsDto;
+import com.qf.web.domain.vo.DictPageVo;
+import com.qf.web.domain.vo.DictTypeVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -17,6 +19,10 @@ import java.util.List;
 public interface SysDictMapper extends BaseMapper<SysDict> {
 
     List<OptionsDto> selectDictByTypeCode(String typeCode);
+
+    List<DictTypeVo> selectDictTypes();
+
+    List<DictPageVo> dictValuePage(String code);
 }
 
 

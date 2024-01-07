@@ -1,11 +1,14 @@
 package com.qf.web.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.qf.common.utils.MenuEnum;
 import com.qf.common.utils.SecurityUtils;
 import com.qf.web.domain.entity.SysMenu;
+import com.qf.web.domain.entity.SysPermission;
 import com.qf.web.domain.entity.SysUser;
 import com.qf.web.domain.dto.MenuOptionsDto;
 import com.qf.web.domain.vo.MenuOptions;
+import com.qf.web.domain.vo.MenuTreeVo;
 import com.qf.web.domain.vo.RouteVo;
 import com.qf.web.domain.vo.RouteVo.Meta;
 import com.qf.web.service.SysMenuService;
@@ -51,6 +54,37 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu>
         return menuOptions == null || menuOptions.size() == 0 ? null : buildOptionsTree(menuOptions.addAll(btnOptions) ? menuOptions : null, 0L);
     }
 
+    @Override
+    public List<MenuTreeVo> getMenuTree() {
+        List<SysMenu> menus = sysMenuMapper.selectList(null);
+        List<SysPermission> permissions = sysPermissionService.selectAll();
+        List<MenuTreeVo> list = buildMenuTree(menus, permissions, 0L);
+        //permissions.forEach(sysPermission -> {
+        //    list.stream().filter(menuTreeVo -> menuTreeVo.getId() == sysPermission.getMenuId())
+        //            .forEach(menuTreeVo -> {
+        //                menuTreeVo.getChildren().add(new MenuTreeVo(sysPermission.getId(), sysPermission.getMenuId(), sysPermission.getName(), 3, sysPermission.getUrlPerm(), null, "", null, 1, sysPermission.getBtnPerm(), null, null));
+        //            });
+        //});
+
+        return list;
+    }
+
+    private List<MenuTreeVo> buildMenuTree(List<SysMenu> menus, List<SysPermission> permissions, long parentId) {
+        List<MenuTreeVo> list = new ArrayList<>();
+        List<SysMenu> menusList = menus.stream().filter(menu -> menu.getParentId() != parentId).collect(Collectors.toList());
+        menus.stream().filter(menu -> menu.getParentId().equals(parentId)).forEach(menu -> {
+            MenuTreeVo menuTreeVo = new MenuTreeVo(menu.getId(), menu.getParentId(), menu.getName(), MenuEnum.enumMap.get(menu.getType()), menu.getPath(), menu.getComponent(), menu.getIcon(), menu.getSort(), menu.getVisible(), null, menu.getRedirect(), buildMenuTree(menusList, permissions, menu.getId()));
+            list.add(menuTreeVo);
+            permissions.forEach(sysPermission -> {
+                if(sysPermission.getMenuId() == menu.getId()) {
+                    menuTreeVo.getChildren().add(new MenuTreeVo(sysPermission.getId(), sysPermission.getMenuId(), sysPermission.getName(), MenuEnum.enumMap.get(3), sysPermission.getUrlPerm(), null, "", null, 1, sysPermission.getBtnPerm(), null, null));
+                 }
+            });
+        });
+
+        return list;
+    }
+
     /**
      * 构建路由树
      */
@@ -61,7 +95,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu>
 
             String name = menu.getPath() != null && menu.getPath().length() > 0 ? menu.getPath().substring(0, 1).toUpperCase() + menu.getPath().substring(1) : menu.getName();
 
-            RouteVo routeVo = new RouteVo(menu.getPath(), menu.getComponent(), menu.getRedirect(), name, new Meta(menu.getName(), menu.getIcon(), menu.getVisible() == 0 ? true : false, roles, true), buildRoutesTree(menusList, menu.getId(), roles));
+            RouteVo routeVo = new RouteVo(menu.getId(), menu.getPath(), menu.getComponent(), menu.getRedirect(), name, new Meta(menu.getName(), menu.getIcon(), menu.getVisible() == 0 ? true : false, roles, true), buildRoutesTree(menusList, menu.getId(), roles));
             list.add(routeVo);
         });
         return list;

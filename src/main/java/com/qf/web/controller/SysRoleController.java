@@ -37,7 +37,7 @@ public class SysRoleController extends BaseController {
      */
     @GetMapping("/options")
     public BaseResponse RoleOptions(){
-
+        System.out.println("进来了role option");
         List<OptionsDto> optionsVos = sysRoleService.getRoleOptions();
         return BaseResponse.success(optionsVos);
     }

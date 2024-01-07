@@ -17,6 +17,10 @@ import java.util.List;
 public class RouteVo {
 
     /**
+     * id
+     */
+    private Long id;
+    /**
      * 封装路径信息的类
      */
     private String path; // 路径

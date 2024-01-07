@@ -47,6 +47,11 @@ public class SysRole implements Serializable {
     private Integer deleted;
 
     /**
+     * 备注信息
+     */
+    private String remark;
+
+    /**
      * 创建时间
      */
     private Date createTime;

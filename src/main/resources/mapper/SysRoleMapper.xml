@@ -11,6 +11,7 @@
         <result property="sort" column="sort" jdbcType="INTEGER"/>
         <result property="status" column="status" jdbcType="TINYINT"/>
         <result property="deleted" column="deleted" jdbcType="TINYINT"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
         <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
@@ -20,7 +21,7 @@
     <sql id="Base_Column_List">
         id
         ,name,code,
-        sort,status,deleted,
+        sort,status,deleted,remark,
         create_time,update_time,create_by,
         update_by
     </sql>
@@ -44,7 +45,7 @@
     </select>
     <select id="getPage" resultType="com.qf.web.domain.vo.RolePageVo">
         select
-        id,name,code,sort,status,deleted,create_time,update_time
+        id,name,code,sort,status,deleted,remark,create_time,update_time
         from sys_role
         <where>
             <if test="keywords!= null and keywords!= ''">
@@ -54,7 +55,7 @@
     </select>
     <select id="getRoleById" resultType="com.qf.web.domain.vo.RoleForm">
         select
-        id,name,code,sort,status,deleted
+        id,name,code,sort,status,deleted,remark
         from sys_role
         where id = #{roleId}
     </select>

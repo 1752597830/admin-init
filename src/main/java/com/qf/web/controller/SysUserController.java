@@ -70,6 +70,8 @@ public class SysUserController extends BaseController {
     @PostMapping("")
     public BaseResponse save(@RequestBody UserForm userForm) {
         log.info("新增用户,{userForm}" + userForm);
+
+
         return toAjax(sysUserService.save(userForm));
     }
     /**
