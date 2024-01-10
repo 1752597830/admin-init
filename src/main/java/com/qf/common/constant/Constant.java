@@ -60,5 +60,6 @@ public class Constant {
             "/v3/api-docs",
             "/v3/api-docs/**",
             "/favicon.ico",
+            "/getIcon"
     };
 }

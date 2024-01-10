@@ -1,5 +1,7 @@
 package com.qf.server.util;
 
+import lombok.ToString;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -8,6 +10,7 @@ import java.math.RoundingMode;
  * @date : 2023/12/27 17:13
  * @Description :
  */
+@ToString
 public class Arith
 {
 

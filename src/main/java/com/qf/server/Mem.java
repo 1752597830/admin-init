@@ -2,12 +2,14 @@ package com.qf.server;
 
 
 import com.qf.server.util.Arith;
+import lombok.ToString;
 
 /**
  * 內存相关信息
  * 
  * @author ruoyi
  */
+@ToString
 public class Mem
 {
     /**

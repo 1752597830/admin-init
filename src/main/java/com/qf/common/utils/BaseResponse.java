@@ -37,6 +37,13 @@ public class BaseResponse<T> implements Serializable {
         return response;
     }
 
+    public static <T> BaseResponse<T> success() {
+        BaseResponse<T> response = new BaseResponse<>();
+        response.setCode(ResponseCode.SUCCESS.getCode());
+        response.setMsg(ResponseCode.SUCCESS.getMsg());
+        return response;
+    }
+
     public static <T> BaseResponse<T> success(String msg, T data) {
         BaseResponse<T> response = new BaseResponse<>();
         response.setCode(ResponseCode.SUCCESS.getCode());

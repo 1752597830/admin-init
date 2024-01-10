@@ -1,5 +1,6 @@
 package com.qf.controller;
 
+import com.qf.common.utils.BaseResponse;
 import com.qf.server.Server;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.commons.lang3.StringUtils;
@@ -9,6 +10,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.File;
 import java.util.*;
 
 /**
@@ -22,7 +24,7 @@ public class TestController {
     @Autowired
     RedisTemplate redisTemplate;
     @GetMapping("/test")
-    public Map<String, Object> test() throws Exception {
+    public BaseResponse test() throws Exception {
 
         // redis的相关信息
         // arch_bits：架构（32 或 64 位）
@@ -58,6 +60,21 @@ public class TestController {
         map.put("usedMemoryHuman", usedMemoryHuman);
         map.put("info", info);
         map.put("key数量", dbSize);
-        return map;
+        return BaseResponse.success(server);
+    }
+    @GetMapping("/getIcon")
+    public BaseResponse getIcon() throws Exception {
+        String path = "D:/code/项目/admin/qf-admin/front/src/assets/icons";
+        File folder = new File(path);
+        File[] files = folder.listFiles();
+        List<String> fileName = new ArrayList<>();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile()) {
+                    fileName.add(file.getName().substring(0, file.getName().lastIndexOf(".")));
+                }
+            }
+        }
+        return BaseResponse.success(fileName);
     }
 }
